@@ -148,6 +148,10 @@ func InitialModel() Model {
 	}()
 	if err := json.NewDecoder(f).Decode(&m); err != nil {
 		m.Err = err
+		return m
+	}
+	if len(m.PrefixDetails) == 0 {
+		m.Err = fmt.Errorf("settings.json must contain at least one prefix")
 	}
 	return m
 }
